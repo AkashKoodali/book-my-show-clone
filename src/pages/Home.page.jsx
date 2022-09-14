@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 //components
 import EntertainmentCardSlider from "../components/Entertainment/EntertainmentCard.Component";
 import HeroCarousel from "../components/HeroCarousel/HeroCarousel.Component";
@@ -10,6 +11,14 @@ const HomePage = () => {
   const [recommentedMovies, setRecommentedMovies] = useState([]);
   const [premierMovies, setPremierMovies] = useState([]);
   const [onlineStreamEvents, setOnlineStreamEvents] = useState([]);
+
+  useEffect(() => {
+    const requestTopRatedMovies = async () => {
+      const getTopRatedMovies = await axios.get("https://api.themoviedb.org/3/movie/top_rated?api_key=8ba0dc319fbc41900dcaca61eaf15230");
+      setRecommentedMovies(getTopRatedMovies.data.results);
+    };
+    requestTopRatedMovies();
+  })
 
   return (
     <>
@@ -24,7 +33,7 @@ const HomePage = () => {
       <div className="container mx-auto px-4 md:px-12 my-8">
         <PosterSlider
           title="Recommented Movies"
-          subject="List of recommented Movies"
+          subtitle="List of recommented Movies"
           posters={recommentedMovies}
           isDark={false}
         />
@@ -41,7 +50,7 @@ const HomePage = () => {
           </div>
           <PosterSlider
           title="Premiers"
-          subject="Brand new releases every Friday"
+          subtitle="Brand new releases every Friday"
           posters={premierMovies}
           isDark={true}
         />
@@ -50,7 +59,7 @@ const HomePage = () => {
       <div className="container mx-auto px-4 md:px-12 my-8" >
           <PosterSlider
           title="Online Streaming Event"
-          subject=""
+          subtitle=""
           posters={onlineStreamEvents}
           isDark={false}
         />
