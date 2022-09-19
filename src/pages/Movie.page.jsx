@@ -7,15 +7,16 @@ import Slider from "react-slick";
 import { FaCcVisa, FaCcApplePay } from "react-icons/fa";
 import PosterSlider from "../components/PosterSlider/PosterSlider.Component";
 import MovieHero from "../components/MovieHero/MovieHero.Component";
+import Cast from "../components/Cast/Cast.Component";
 
 const MoviePage = () => {
   const { id } = useParams();
 
-  const { movie , setMovie } = useContext(MovieContext);
+  const { movie, setMovie } = useContext(MovieContext);
 
-  const [ cast, setCast ] = useState([]);
-  const [ similarMovies, setSimilarMovies ] = useState([]);
-  const [ recommendedMovies, setRecommendedMovies ] = useState([]);
+  const [cast, setCast] = useState([]);
+  const [similarMovies, setSimilarMovies] = useState([]);
+  const [recommendedMovies, setRecommendedMovies] = useState([]);
 
   useEffect(() => {
     const requestCast = async () => {
@@ -47,9 +48,39 @@ const MoviePage = () => {
       setMovie(getMovieData.data);
     };
     requestMovie();
-  },[id]);
+  }, [id]);
 
-  const settingsCast = {};
+  const settingsCast = {
+    infinite: false,
+    speed: 500,
+    slidesToShow: 6,
+    sliedsToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 4,
+          sliedsToScroll: 4,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 5,
+          sliedsToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          sliedsToScroll: 1
+        }
+      }
+    ]
+  };
 
   const settings = {
     infinite: false,
@@ -63,28 +94,25 @@ const MoviePage = () => {
         settings: {
           slidesToShow: 3,
           sliedsToScroll: 3,
-
-        }
+        },
       },
       {
         breakpoint: 600,
         settings: {
           slidesToShow: 2,
           sliedsToScroll: 2,
-          initialSlide: 3
-          
-        }
+          initialSlide: 3,
+        },
       },
       {
         breakpoint: 480,
         settings: {
           slidesToShow: 3,
           sliedsToScroll: 1,
-          initialSlide: 4
-          
-        }
-      }
-    ]
+          initialSlide: 4,
+        },
+      },
+    ],
   };
 
   return (
@@ -141,6 +169,20 @@ const MoviePage = () => {
         </div>
 
         {/* cast slider */}
+        <div className="my-8">
+          <h2 className="text-gray-800 font-bold  text-2xl mb-4">
+            Cast and Crew
+          </h2>
+          <Slider {...settingsCast}>
+            {cast.map((castData) => (
+              <Cast
+                image={castData.profile_path}
+                castName={castData.original_name}
+                role={castData.character}
+              />
+            ))}
+          </Slider>
+        </div>
 
         <div className="my-8">
           <hr />
@@ -151,7 +193,7 @@ const MoviePage = () => {
           <PosterSlider
             config={settings}
             title="Recommended Movies"
-            posters={recommendedMovies}
+            posters={similarMovies}
             isDark={false}
           />
         </div>
