@@ -13,12 +13,28 @@ const HomePage = () => {
   const [onlineStreamEvents, setOnlineStreamEvents] = useState([]);
 
   useEffect(() => {
+    const requestUpcomigMovies = async () => {
+      const getUpcomingMovies = await axios.get("/movie/upcoming");
+      setOnlineStreamEvents(getUpcomingMovies.data.results);
+    };
+    requestUpcomigMovies();
+  },[]);
+
+  useEffect(() => {
+    const requestPopularMovies = async () => {
+      const getPopularMovies = await axios.get("/movie/popular");
+      setRecommentedMovies(getPopularMovies.data.results);
+    };
+    requestPopularMovies();
+  },[]);
+
+  useEffect(() => {
     const requestTopRatedMovies = async () => {
-      const getTopRatedMovies = await axios.get("https://api.themoviedb.org/3/movie/top_rated?api_key=8ba0dc319fbc41900dcaca61eaf15230");
-      setRecommentedMovies(getTopRatedMovies.data.results);
+      const getTopRatedMovies = await axios.get("/movie/top_rated");
+      setPremierMovies(getTopRatedMovies.data.results);
     };
     requestTopRatedMovies();
-  })
+  },[]);
 
   return (
     <>
@@ -30,7 +46,7 @@ const HomePage = () => {
         <EntertainmentCardSlider />
       </div>
 
-      <div className="container mx-auto px-4 md:px-12 my-8">
+      <div className="container mx-auto px-4 md:px-12 my-8 ">
         <PosterSlider
           title="Recommented Movies"
           subtitle="List of recommented Movies"

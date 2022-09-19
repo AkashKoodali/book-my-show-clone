@@ -44,11 +44,22 @@ const PosterSlider = (props) => {
       </h3>
       <p className={`text-sm ${isDark ? 'text-white' : 'text-gray-800'}`}>{subtitle}</p>
     </div>
-    <Slider {...settings}>
+    
+    {config && (
+      <Slider {...config}>
       {posters.map((each, index) => (
         <Poster {...each} isDark= {isDark} key={index} />
       ))}
     </Slider>
+    )}
+    {!config && (
+      <Slider {...settings}>
+      {posters.map((each, index) => (
+        <Poster {...each} isDark= {isDark} key={index} />
+      ))}
+    </Slider>
+    )}
+  
     </>
   )
 }

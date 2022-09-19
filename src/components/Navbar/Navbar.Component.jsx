@@ -25,8 +25,8 @@ function NavMd() {
     <div className="flex items-center w-full gap-3">
     <div className="w-10 h-10">
             <img
-              src="https://e7.pngegg.com/pngimages/919/445/png-clipart-bookmyshow-office-android-ticket-android-text-logo-thumbnail.png"
-              alt="logo"
+              src= "https://i.ibb.co/zPBYW3H/imgbin-bookmyshow-office-android-ticket-png.png"
+              alt= "logo"
               className="w-full h-full"
             />
           </div>
@@ -51,7 +51,7 @@ function NavLg() {
         <div className="flex items-center w-1/2 gap-3">
           <div className="w-10 h-10">
             <img
-              src="https://e7.pngegg.com/pngimages/919/445/png-clipart-bookmyshow-office-android-ticket-android-text-logo-thumbnail.png"
+              src= "https://i.ibb.co/zPBYW3H/imgbin-bookmyshow-office-android-ticket-png.png"              
               alt="logo"
               className="w-full h-full"
             />
